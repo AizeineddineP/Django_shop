@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block content %}
+    <h2>Список пользователей</h2>
+    <div class="row">
+        {% for user in users %}
+        <div class="col-md-4">
+           <div class="card" style="width: 18rem;">
+                <!-- Используем static для корректного отображения пути к изображению -->
+                <img src="{% static user.photo %}" class="card-img-top" alt="{{ user.name }}" style="height: 200px; object-fit: contain;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.name }}</h5>
+                    <p class="card-text">Возраст: {{ user.age }}</p>
+                    <p class="card-text">Телефон: {{ user.phone }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
