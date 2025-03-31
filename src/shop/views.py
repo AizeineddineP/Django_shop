@@ -22,19 +22,19 @@ def home(request):
 
 def info(request):
     return render(request, "info.html")
-#def marketplace(request):
-    #return render(request, 'marketplace.html', {"title": 'Маркетплейс'})
+def marketplace(request):
+    return render(request, 'marketplace.html', {"title": 'Маркетплейс'})
 
 # Данные о товарах
-goods = [
-    {"good_name": "Lego Set", "status": "available", "category": "children"},
-    {"good_name": "Bicycle", "status": "out of stock", "category": "children"},
-    {"good_name": "Doll", "status": "available", "category": "children"},
-    {"good_name": "Puzzle", "status": "available", "category": "children"},
+products = [
+    {"product_name": "Lego Set", "status": "available", "category": "children"},
+    {"product_name": "Bicycle", "status": "out of stock", "category": "children"},
+    {"product_name": "Doll", "status": "available", "category": "children"},
+    {"product_name": "Puzzle", "status": "available", "category": "children"},
 ]
 # Страница с товарами
-def goods_view(request):
-    return render(request, "goods.html", {"goods": goods})
+def products_view(request):
+    return render(request, "products.html", {"products": products})
 
 # Данные о пользователях
 users = [
