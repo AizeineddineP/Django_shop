@@ -8,16 +8,20 @@
         <thead>
             <tr>
                 <th>Название</th>
-                <th>Статус</th>
-                <th>Категория</th>
+                <th>Характеристика</th>
+                <th>Цена</th>
+                <th>Рейтинг</th>
+                <th>Фото</th>
             </tr>
         </thead>
         <tbody>
             {% for item in products %}
             <tr>
-                <td>{{ item.product_name }}</td>
-                <td>{{ item.status }}</td>
-                <td>{{ item.category }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.rating }}</td>
+                <td>{{ item.photo }}</td>
             </tr>
             {% endfor %}
         </tbody>

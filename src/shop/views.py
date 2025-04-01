@@ -6,6 +6,7 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Product
 
 def first_view(request):
     return HttpResponse("<h1>Hello Django<h1\>")
@@ -25,16 +26,10 @@ def info(request):
 def marketplace(request):
     return render(request, 'marketplace.html', {"title": 'Маркетплейс'})
 
-# Данные о товарах
-products = [
-    {"product_name": "Lego Set", "status": "available", "category": "children"},
-    {"product_name": "Bicycle", "status": "out of stock", "category": "children"},
-    {"product_name": "Doll", "status": "available", "category": "children"},
-    {"product_name": "Puzzle", "status": "available", "category": "children"},
-]
 # Страница с товарами
 def products_view(request):
-    return render(request, "products.html", {"products": products})
+    products = Product.objects.all()
+    return render(request, 'products.html', {'products': products})
 
 # Данные о пользователях
 users = [
