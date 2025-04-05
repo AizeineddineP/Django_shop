@@ -15,21 +15,21 @@ def second_view(request):
     return HttpResponse("<h1>First task on Django<h1\>")
 
 def first_html(request):
-    return render(request, 'hi.html')
+    return render(request, "hi.html")
 
 # Главная страница
 def home(request):
-    return render(request, 'home.html')
+    return render(request, "home.html")
 
 def info(request):
     return render(request, "info.html")
 def marketplace(request):
-    return render(request, 'marketplace.html', {"title": 'Маркетплейс'})
+    return render(request, "marketplace.html", {"title": 'Маркетплейс'})
 
 # Страница с товарами
 def products_view(request):
     products = Product.objects.all()
-    return render(request, 'products.html', {'products': products})
+    return render(request, "products.html", {"products": products})
 
 # Данные о пользователях
 users = [
