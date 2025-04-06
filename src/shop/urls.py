@@ -1,5 +1,5 @@
 from django.urls import path
-from shop.views import home, goods_view, users_view, info
+from shop.views import home, products_view, users_view, info
 
 #first_view, second_view, first_html,
 #from src.shop.views import second_view
@@ -12,6 +12,6 @@ urlpatterns = [
     path("", home, name='home'),
     path("about/", info, name='info'),
     #path('marketplace/', marketplace),
-    path("goods/", goods_view, name='goods'),
+    path("products/", products_view, name='products'),
     path("users/", users_view, name='users')
 ]

@@ -1,22 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'home' %}">Xzeno Shop</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-semibold" href="{% url 'home' %}">🏠 Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-semibold" href="{% url 'goods' %}">🛍️ Товары</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-semibold" href="{% url 'users' %}">👤 Пользователи</a>
-                </li>
-            </ul>
-        </div>
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">XZENO SHOP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container-fluid" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">🏠 Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'products' %}">🛍️ Товары</a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'info' %}">ℹ️ О нас</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>
+
 
