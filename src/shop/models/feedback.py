@@ -1,14 +1,13 @@
 from django.db import models
-from core import settings
+from django.conf import settings
+from shop.models.base import TimeConfig
 
 
-class Feedback(models.Model):
+class Feedback(TimeConfig):
     title=models.CharField(max_length=40)
     description=models.CharField(max_length=256)
-    rating=models.FloatField(null=True, blank=True)
 
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+
 
     product = models.ForeignKey(
         to="Product",

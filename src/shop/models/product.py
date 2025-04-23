@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from shop.models.base import TimeConfig
 
 class ProductCategory(models.TextChoices):
     TECHNIQUE = "TQ", _("Technique")
@@ -9,7 +10,7 @@ class ProductCategory(models.TextChoices):
     Toy = "TY", _("Toy")
     DEFAULT = "DF", _("Default")
 
-class Product(models.Model):
+class Product(TimeConfig):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=200, null=True, blank=True)
     price = models.FloatField()
@@ -18,11 +19,9 @@ class Product(models.Model):
         choices= ProductCategory,
         default=ProductCategory.DEFAULT
     )
-    rating = models.FloatField(null=True, blank=True)
     photo = models.ImageField(null=True, blank=True)
     count_items = models.IntegerField(default=10)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+
 
     provider = models.ForeignKey(
         to="Provider",
