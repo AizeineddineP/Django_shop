@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     #user apps
-    'shop',
+    'shop.apps.ShopConfig',
     'authentication'
 
 ]

@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from shop.models import (
-     Product,
      Order,
      ProductDetail,
      ProductOrder,
@@ -12,7 +11,6 @@ from shop.models import (
      ProviderRating
 )
 # Register your models here.
-admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(ProductDetail)
 admin.site.register(ProductOrder)

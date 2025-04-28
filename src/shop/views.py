@@ -8,6 +8,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Product
 from authentication.models import CustomUser
+from shop.forms import ProductForm
+
 
 
 def first_view(request):
@@ -50,3 +52,11 @@ def user_orders_view(request):
         "users": users
     }
     return render(request, "user_order_products.html", context=context)
+
+def product_form(request):
+
+    form = ProductForm()
+    context = {
+        "form": form
+    }
+    return render(request, "product_form.html", context=context)

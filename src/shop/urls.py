@@ -1,5 +1,5 @@
 from django.urls import path
-from shop.views import home, products_view,info, user_orders_view
+from shop.views import home, products_view,info, user_orders_view, product_form
 
 #first_view, second_view, first_html,
 #from src.shop.views import second_view
@@ -14,5 +14,6 @@ urlpatterns = [
     #path('marketplace/', marketplace),
     path("products/", products_view, name='products'),
     #path("users/", users_view, name='users')
-    path("user_orders/", user_orders_view, name='user_orders')
+    path("user_orders/", user_orders_view, name='user_orders'),
+    path("add_product/", product_form, name='product_form')
 ]
