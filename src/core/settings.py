@@ -15,6 +15,8 @@ import environ
 
 from pathlib import Path
 
+from psycopg2 import InternalError
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
@@ -47,9 +49,10 @@ INSTALLED_APPS = [
 
     #helping apps
     'django_extensions',
+    'debug_toolbar',
 
     #user apps
-    'shop',
+    'shop.apps.ShopConfig',
     'authentication'
 
 ]
@@ -59,9 +62,13 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    #debug-toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -148,3 +155,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #authenticatiom
 
 AUTH_USER_MODEL = "authentication.CustomUser"
+
+Internal_IPS = [
+    "127.0.0.1",
+]

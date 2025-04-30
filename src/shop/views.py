@@ -7,6 +7,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Product
+from authentication.models import CustomUser
+from shop.forms import ProductForm
+
+
 
 def first_view(request):
     return HttpResponse("<h1>Hello Django<h1\>")
@@ -32,11 +36,27 @@ def products_view(request):
     return render(request, "products.html", {"products": products})
 
 # Данные о пользователях
-users = [
-    {"name": "Alice", "age": 22, "phone": "+123456789", "photo": "shop/image/alice.jpg"},
-    {"name": "Bob", "age": 30, "phone": "+987654321", "photo": "shop/image/bob.jpg"},
-    {"name": "Charlie", "age": 25, "phone": "+192837465", "photo": "shop/image/charlie.jpg"},
-]
+#users = [
+    #{"name": "Alice", "age": 22, "phone": "+123456789", "photo": "shop/image/alice.jpg"},
+    #"name": "Bob", "age": 30, "phone": "+987654321", "photo": "shop/image/bob.jpg"},
+    #{"name": "Charlie", "age": 25, "phone": "+192837465", "photo": "shop/image/charlie.jpg"},
+#]
 # Страница с пользователями
-def users_view(request):
-    return render(request, "users.html", {"users": users})
+#def users_view(request):
+    #return render(request, "users.html", {"users": users})
+
+# Страница с заказами
+def user_orders_view(request):
+    users = CustomUser.objects.all().prefetch_related('order','order__product')
+    context = {
+        "users": users
+    }
+    return render(request, "user_order_products.html", context=context)
+
+def product_form(request):
+
+    form = ProductForm()
+    context = {
+        "form": form
+    }
+    return render(request, "product_form.html", context=context)
