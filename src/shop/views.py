@@ -4,11 +4,11 @@
 #Template = html
 #Views = controller
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
 from .models import Product
 from authentication.models import CustomUser
-from shop.forms import ProductForm
+from shop.forms import ProductModelForm
 
 
 
@@ -54,9 +54,14 @@ def user_orders_view(request):
     return render(request, "user_order_products.html", context=context)
 
 def product_form(request):
+    context ={}
+    if request.method == "POST":
+        form = ProductModelForm(request.POST)
 
-    form = ProductForm()
-    context = {
-        "form": form
-    }
-    return render(request, "product_form.html", context=context)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("products"))
+        context["form"] = form
+    context["form"] = ProductModelForm()
+
+    return render(request,template_name="product_form.html",context=context)

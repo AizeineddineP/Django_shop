@@ -21,8 +21,20 @@
           <a class="nav-link" href="{% url 'info' %}">ℹ️ О нас</a>
         </li>
       <li class="nav-item">
-          <a class="nav-link" href="{% url 'product_form' %}">Добавить товар</a>
+          <a class="nav-link" href="{% url 'product_form' %}"> ➕ Добавить товар</a>
         </li>
+      </ul>
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row gap-3">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}"> 🔐 Выйти</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}"> 🔓 Войти</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>

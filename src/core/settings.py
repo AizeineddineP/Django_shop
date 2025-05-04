@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     #helping apps
     'django_extensions',
     'debug_toolbar',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     #user apps
     'shop.apps.ShopConfig',
@@ -159,3 +161,8 @@ AUTH_USER_MODEL = "authentication.CustomUser"
 Internal_IPS = [
     "127.0.0.1",
 ]
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
