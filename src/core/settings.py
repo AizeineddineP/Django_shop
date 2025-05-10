@@ -176,3 +176,6 @@ CACHES = {
         "LOCATION": "my_cache_table",
     }
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
