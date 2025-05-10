@@ -5,10 +5,16 @@
 #Views = controller
 
 from django.shortcuts import render,redirect,reverse
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from .models import Product
 from authentication.models import CustomUser
 from shop.forms import ProductModelForm
+from shop.models import Product
+from django.views.decorators.cache import cache_page
+from django.core.cache import caches
+
+
 
 
 
@@ -46,13 +52,17 @@ def products_view(request):
     #return render(request, "users.html", {"users": users})
 
 # Страница с заказами
-def user_orders_view(request):
-    users = CustomUser.objects.all().prefetch_related('order','order__product')
+def user_orders(request):
+    users = CustomUser.objects.all().prefetch_related('orders', 'orders__product')
     context = {
         "users": users
     }
     return render(request, "user_order_products.html", context=context)
 
+
+@login_required(login_url="/auth/login/",redirect_field_name="product_form")
+@permission_required(perm="shop.add_product",raise_exception=True)
+@cache_page(60 * 5, cache="default")
 def product_form(request):
     context ={}
     if request.method == "POST":
@@ -60,6 +70,7 @@ def product_form(request):
 
         if form.is_valid():
             form.save()
+            caches["default"].clear()
             return redirect(reverse("products"))
         context["form"] = form
     context["form"] = ProductModelForm()
