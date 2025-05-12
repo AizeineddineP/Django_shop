@@ -10,26 +10,21 @@ from django.http import HttpResponse
 from .models import Product
 from authentication.models import CustomUser
 from shop.forms import ProductModelForm
-from shop.models import Product
+from shop.models.product import Product, ProductCategory
 from django.views.decorators.cache import cache_page
 from django.core.cache import caches
+#from django.views.generic.base import TemplateView
 
-
-
-
-
-def first_view(request):
-    return HttpResponse("<h1>Hello Django<h1\>")
-
-def second_view(request):
-    return HttpResponse("<h1>First task on Django<h1\>")
-
-def first_html(request):
-    return render(request, "hi.html")
 
 # Главная страница
-def home(request):
-    return render(request, "home.html")
+def HomeView(request):
+    featured_products = Product.objects.filter(is_available=True)
+    categories = [(cat.value, cat.label) for cat in ProductCategory]
+    return render(request, 'shop/home.html', {
+        'featured_products': featured_products,
+        'categories': categories,
+    })
+
 
 def info(request):
     return render(request, "info.html")
