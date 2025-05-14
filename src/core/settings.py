@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     #helping apps
     'django_extensions',
     'debug_toolbar',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     #user apps
     'shop.apps.ShopConfig',
@@ -64,6 +66,10 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     #debug-toolbar
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #cache
+    "django.middleware.cache.UpdateCacheMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -159,3 +165,17 @@ AUTH_USER_MODEL = "authentication.CustomUser"
 Internal_IPS = [
     "127.0.0.1",
 ]
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "my_cache_table",
+    }
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

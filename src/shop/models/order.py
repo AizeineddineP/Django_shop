@@ -13,13 +13,13 @@ class Order(TimeConfig):
     product = models.ManyToManyField(
         to="Product",
         through="ProductOrder",
-        related_name="order"
+        related_name="order",
     )
 
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="order",
+        related_name="orders",
         blank=True,
         null=True
     )
