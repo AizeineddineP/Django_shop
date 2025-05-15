@@ -1,5 +1,7 @@
 from django.urls import path
-from shop.views import HomeView, products_view,info, user_orders, product_form
+from shop.views import HomeView, ProductView, info, UserOrdersListViews, ProductCreateView
+from django.views.decorators.cache import cache_page
+
 
 
 #first_view, second_view, first_html,
@@ -13,8 +15,9 @@ urlpatterns = [
     path("",HomeView, name='home'),
     path("about/", info, name='info'),
     #path('marketplace/', marketplace),
-    path("products/", products_view, name='products'),
+    path("products/", cache_page(60)(ProductView.as_view()), name='products'),
     #path("users/", users_view, name='users')
-    path("user_orders/", user_orders, name='user_orders'),
-    path("add_product/", product_form, name='product_form'),
+    path("user_orders/", UserOrdersListViews.as_view(), name='user_orders'),
+    path("add_product/", ProductCreateView.as_view(), name='product_form'),
+
 ]

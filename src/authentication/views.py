@@ -23,7 +23,6 @@ def register_view(request):
     return render(request, "register_form.html", context)
 
 
-
 def login_view(request):
     context = {}
 
