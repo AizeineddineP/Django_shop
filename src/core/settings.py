@@ -52,10 +52,13 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'crispy_forms',
     'crispy_bootstrap5',
+    #django-rest_framework
+    'rest_framework',
 
     #user apps
     'shop.apps.ShopConfig',
-    'authentication'
+    'authentication',
+    'shop_api',
 
 ]
 
@@ -66,15 +69,15 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     #debug-toolbar
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     #cache
-    "django.middleware.cache.UpdateCacheMiddleware",
+    #"django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.cache.FetchFromCacheMiddleware",
+    #"django.middleware.cache.FetchFromCacheMiddleware",
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'core.urls'

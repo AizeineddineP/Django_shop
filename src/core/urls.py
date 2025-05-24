@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls')),
     path("auth/", include('authentication.urls')),
+    path("api/", include("shop_api.urls")),
     # path('hello/first_html', include('shop.urls')),
     # path('home/' , include('shop.urls')),
     # path('marketplace/', include('shop.urls')),
