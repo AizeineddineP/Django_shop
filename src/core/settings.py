@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     #django-rest_framework
     'rest_framework',
+    'django_filters',
 
     #user apps
     'shop.apps.ShopConfig',
@@ -182,3 +183,8 @@ CACHES = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#rest framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
