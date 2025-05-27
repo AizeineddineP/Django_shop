@@ -13,7 +13,12 @@ from shop.forms import ProductModelForm
 from shop.models.product import Product, ProductCategory
 from django.views.decorators.cache import cache_page
 from django.core.cache import caches
-#from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.urls import reverse_lazy
+from django.views.decorators.cache import never_cache
 
 
 # Главная страница
@@ -32,9 +37,17 @@ def marketplace(request):
     return render(request, "marketplace.html", {"title": 'Маркетплейс'})
 
 # Страница с товарами
-def products_view(request):
-    products = Product.objects.all()
-    return render(request, "products.html", {"products": products})
+# def products_view(request):
+#     products = Product.objects.all()
+#     return render(request, "products.html", {"products": products})
+
+class ProductView(ListView):
+    template_name = "products.html"
+    queryset = Product.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["products"] = Product.objects.all()
+        return context
 
 # Данные о пользователях
 #users = [
@@ -47,27 +60,46 @@ def products_view(request):
     #return render(request, "users.html", {"users": users})
 
 # Страница с заказами
-def user_orders(request):
-    users = CustomUser.objects.all().prefetch_related('orders', 'orders__product')
-    context = {
-        "users": users
-    }
-    return render(request, "user_order_products.html", context=context)
+
+class UserOrdersListViews(ListView):
+    template_name = "user_order_products.html"
+    queryset =  CustomUser.objects.all().prefetch_related('orders').prefetch_related('orders__product')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["users"] = CustomUser.objects.all().prefetch_related('orders').prefetch_related('orders__product')
+        return context
+
+# def user_orders(request):
+#     users = CustomUser.objects.all().prefetch_related('orders', 'orders__product')
+#     context = {
+#         "users": users
+#     }
+#     return render(request, "user_order_products.html", context=context)
 
 
-@login_required(login_url="/auth/login/",redirect_field_name="product_form")
-@permission_required(perm="shop.add_product",raise_exception=True)
-@cache_page(60 * 5, cache="default")
-def product_form(request):
-    context ={}
-    if request.method == "POST":
-        form = ProductModelForm(request.POST)
+# @login_required(login_url="/auth/login/", redirect_field_name="product_form")
+# @permission_required(perm="shop.add_product", raise_exception=True)
+# @cache_page(60 * 5, cache="default")
+# def product_form(request):
+#     context = {}
+#     if request.method == "POST":
+#         form = ProductModelForm(request.POST)
+#
+#         if form.is_valid():
+#             form.save()
+#             caches["default"].clear()
+#             return redirect(reverse("products"))
+#         context["form"] = form
+#     context["form"] = ProductModelForm()
+#
+#     return render(request, template_name="product_form.html", context=context)
 
-        if form.is_valid():
-            form.save()
-            caches["default"].clear()
-            return redirect(reverse("products"))
-        context["form"] = form
-    context["form"] = ProductModelForm()
-
-    return render(request,template_name="product_form.html",context=context)
+class ProductCreateView(PermissionRequiredMixin, CreateView):
+    template_name = "product_form.html"
+    model = Product
+    # form_class = ProductModelForm
+    fields = ["name","price","count_items","description","photo"]
+    success_url = reverse_lazy("products")
+    permission_required = ["shop.add_product"]
+    # redirect_field_name = "product"
