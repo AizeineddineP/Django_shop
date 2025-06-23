@@ -70,30 +70,30 @@ class UserOrdersListViews(ListView):
         context["users"] = CustomUser.objects.all().prefetch_related('orders').prefetch_related('orders__product')
         return context
 
-# def user_orders(request):
-#     users = CustomUser.objects.all().prefetch_related('orders', 'orders__product')
-#     context = {
-#         "users": users
-#     }
-#     return render(request, "user_order_products.html", context=context)
+def user_orders(request):
+    users = CustomUser.objects.all().prefetch_related('orders', 'orders__product')
+    context = {
+        "users": users
+    }
+    return render(request, "user_order_products.html", context=context)
 
 
-# @login_required(login_url="/auth/login/", redirect_field_name="product_form")
-# @permission_required(perm="shop.add_product", raise_exception=True)
-# @cache_page(60 * 5, cache="default")
-# def product_form(request):
-#     context = {}
-#     if request.method == "POST":
-#         form = ProductModelForm(request.POST)
-#
-#         if form.is_valid():
-#             form.save()
-#             caches["default"].clear()
-#             return redirect(reverse("products"))
-#         context["form"] = form
-#     context["form"] = ProductModelForm()
-#
-#     return render(request, template_name="product_form.html", context=context)
+@login_required(login_url="/auth/login/", redirect_field_name="product_form")
+@permission_required(perm="shop.add_product", raise_exception=True)
+@cache_page(60 * 5, cache="default")
+def product_form(request):
+    context = {}
+    if request.method == "POST":
+        form = ProductModelForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            caches["default"].clear()
+            return redirect(reverse("products"))
+        context["form"] = form
+    context["form"] = ProductModelForm()
+
+    return render(request, template_name="product_form.html", context=context)
 
 class ProductCreateView(PermissionRequiredMixin, CreateView):
     template_name = "product_form.html"
